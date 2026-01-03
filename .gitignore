@@ -1,0 +1,27 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User-specific
+xcuserdata/
+
+## Build artifacts
+build/
+DerivedData/
+
+## Schemes
+## Build settings and dependencies
+*.moved-aside
+*.xcuserstate
+
+## Swift Package Manager
+.build/
+.swiftpm/
+
+## OS X
+.DS_Store
+
+## API Keys / Local Config
+.env
+*.apikey
+Config.swift

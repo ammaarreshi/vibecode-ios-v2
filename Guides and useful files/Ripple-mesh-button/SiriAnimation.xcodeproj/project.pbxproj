@@ -3,23 +3,40 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 60;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		967BCC3B2C217BB60001CF94 /* SiriAnimationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC3A2C217BB60001CF94 /* SiriAnimationApp.swift */; };
+		967BCC3D2C217BB60001CF94 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC3C2C217BB60001CF94 /* ContentView.swift */; };
+		967BCC3F2C217BB70001CF94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967BCC3E2C217BB70001CF94 /* Assets.xcassets */; };
+		967BCC422C217BB70001CF94 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967BCC412C217BB70001CF94 /* Preview Assets.xcassets */; };
+		967BCC492C217BDF0001CF94 /* RippleEffect.metal in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC482C217BDF0001CF94 /* RippleEffect.metal */; };
+		967BCC4B2C217BF80001CF94 /* RippleEffectModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC4A2C217BF80001CF94 /* RippleEffectModifier.swift */; };
+		967BCC4D2C217C1D0001CF94 /* AnimatedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC4C2C217C170001CF94 /* AnimatedPath.swift */; };
+		967BCC512C217C450001CF94 /* MeshGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC502C217C420001CF94 /* MeshGradientView.swift */; };
+		967BCC532C217C660001CF94 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC522C217C660001CF94 /* BackgroundView.swift */; };
+		967BCC552C217C9A0001CF94 /* AnimatedMeshGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC542C217C960001CF94 /* AnimatedMeshGradient.swift */; };
+		967BCC572C217CA70001CF94 /* TextTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967BCC562C217CA30001CF94 /* TextTransition.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		930AE0352F080829009DFCC4 /* VibeCodeAlpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeCodeAlpha.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		967BCC372C217BB60001CF94 /* SiriAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiriAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		967BCC3A2C217BB60001CF94 /* SiriAnimationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriAnimationApp.swift; sourceTree = "<group>"; };
+		967BCC3C2C217BB60001CF94 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		967BCC3E2C217BB70001CF94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		967BCC412C217BB70001CF94 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		967BCC482C217BDF0001CF94 /* RippleEffect.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RippleEffect.metal; sourceTree = "<group>"; };
+		967BCC4A2C217BF80001CF94 /* RippleEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleEffectModifier.swift; sourceTree = "<group>"; };
+		967BCC4C2C217C170001CF94 /* AnimatedPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedPath.swift; sourceTree = "<group>"; };
+		967BCC502C217C420001CF94 /* MeshGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshGradientView.swift; sourceTree = "<group>"; };
+		967BCC522C217C660001CF94 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		967BCC542C217C960001CF94 /* AnimatedMeshGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedMeshGradient.swift; sourceTree = "<group>"; };
+		967BCC562C217CA30001CF94 /* TextTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		930AE0372F080829009DFCC4 /* VibeCodeAlpha */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = VibeCodeAlpha;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
-		930AE0322F080829009DFCC4 /* Frameworks */ = {
+		967BCC342C217BB60001CF94 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,103 +46,134 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		930AE02C2F080829009DFCC4 = {
+		967BCC2E2C217BB60001CF94 = {
 			isa = PBXGroup;
 			children = (
-				930AE0372F080829009DFCC4 /* VibeCodeAlpha */,
-				930AE0362F080829009DFCC4 /* Products */,
+				967BCC392C217BB60001CF94 /* SiriAnimation */,
+				967BCC382C217BB60001CF94 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		930AE0362F080829009DFCC4 /* Products */ = {
+		967BCC382C217BB60001CF94 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				930AE0352F080829009DFCC4 /* VibeCodeAlpha.app */,
+				967BCC372C217BB60001CF94 /* SiriAnimation.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		967BCC392C217BB60001CF94 /* SiriAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				967BCC3A2C217BB60001CF94 /* SiriAnimationApp.swift */,
+				967BCC3C2C217BB60001CF94 /* ContentView.swift */,
+				967BCC522C217C660001CF94 /* BackgroundView.swift */,
+				967BCC482C217BDF0001CF94 /* RippleEffect.metal */,
+				967BCC4A2C217BF80001CF94 /* RippleEffectModifier.swift */,
+				967BCC4C2C217C170001CF94 /* AnimatedPath.swift */,
+				967BCC502C217C420001CF94 /* MeshGradientView.swift */,
+				967BCC542C217C960001CF94 /* AnimatedMeshGradient.swift */,
+				967BCC562C217CA30001CF94 /* TextTransition.swift */,
+				967BCC3E2C217BB70001CF94 /* Assets.xcassets */,
+				967BCC402C217BB70001CF94 /* Preview Content */,
+			);
+			path = SiriAnimation;
+			sourceTree = "<group>";
+		};
+		967BCC402C217BB70001CF94 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				967BCC412C217BB70001CF94 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		930AE0342F080829009DFCC4 /* VibeCodeAlpha */ = {
+		967BCC362C217BB60001CF94 /* SiriAnimation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 930AE0402F08082B009DFCC4 /* Build configuration list for PBXNativeTarget "VibeCodeAlpha" */;
+			buildConfigurationList = 967BCC452C217BB70001CF94 /* Build configuration list for PBXNativeTarget "SiriAnimation" */;
 			buildPhases = (
-				930AE0312F080829009DFCC4 /* Sources */,
-				930AE0322F080829009DFCC4 /* Frameworks */,
-				930AE0332F080829009DFCC4 /* Resources */,
+				967BCC332C217BB60001CF94 /* Sources */,
+				967BCC342C217BB60001CF94 /* Frameworks */,
+				967BCC352C217BB60001CF94 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				930AE0372F080829009DFCC4 /* VibeCodeAlpha */,
-			);
-			name = VibeCodeAlpha;
-			packageProductDependencies = (
-			);
-			productName = VibeCodeAlpha;
-			productReference = 930AE0352F080829009DFCC4 /* VibeCodeAlpha.app */;
+			name = SiriAnimation;
+			productName = SiriAnimation;
+			productReference = 967BCC372C217BB60001CF94 /* SiriAnimation.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		930AE02D2F080829009DFCC4 /* Project object */ = {
+		967BCC2F2C217BB60001CF94 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2610;
-				LastUpgradeCheck = 2610;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					930AE0342F080829009DFCC4 = {
-						CreatedOnToolsVersion = 26.1.1;
+					967BCC362C217BB60001CF94 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = 930AE0302F080829009DFCC4 /* Build configuration list for PBXProject "VibeCodeAlpha" */;
+			buildConfigurationList = 967BCC322C217BB60001CF94 /* Build configuration list for PBXProject "SiriAnimation" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 930AE02C2F080829009DFCC4;
-			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
-			productRefGroup = 930AE0362F080829009DFCC4 /* Products */;
+			mainGroup = 967BCC2E2C217BB60001CF94;
+			productRefGroup = 967BCC382C217BB60001CF94 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				930AE0342F080829009DFCC4 /* VibeCodeAlpha */,
+				967BCC362C217BB60001CF94 /* SiriAnimation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		930AE0332F080829009DFCC4 /* Resources */ = {
+		967BCC352C217BB60001CF94 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967BCC422C217BB70001CF94 /* Preview Assets.xcassets in Resources */,
+				967BCC3F2C217BB70001CF94 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		930AE0312F080829009DFCC4 /* Sources */ = {
+		967BCC332C217BB60001CF94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967BCC3D2C217BB60001CF94 /* ContentView.swift in Sources */,
+				967BCC512C217C450001CF94 /* MeshGradientView.swift in Sources */,
+				967BCC4B2C217BF80001CF94 /* RippleEffectModifier.swift in Sources */,
+				967BCC572C217CA70001CF94 /* TextTransition.swift in Sources */,
+				967BCC552C217C9A0001CF94 /* AnimatedMeshGradient.swift in Sources */,
+				967BCC532C217C660001CF94 /* BackgroundView.swift in Sources */,
+				967BCC492C217BDF0001CF94 /* RippleEffect.metal in Sources */,
+				967BCC3B2C217BB60001CF94 /* SiriAnimationApp.swift in Sources */,
+				967BCC4D2C217C1D0001CF94 /* AnimatedPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		930AE03E2F08082B009DFCC4 /* Debug */ = {
+		967BCC432C217BB70001CF94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -160,7 +208,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7S264298H8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -178,7 +225,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -189,7 +236,7 @@
 			};
 			name = Debug;
 		};
-		930AE03F2F08082B009DFCC4 /* Release */ = {
+		967BCC442C217BB70001CF94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -224,7 +271,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7S264298H8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -236,7 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -246,73 +292,57 @@
 			};
 			name = Release;
 		};
-		930AE0412F08082B009DFCC4 /* Debug */ = {
+		967BCC462C217BB70001CF94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7S264298H8;
+				DEVELOPMENT_ASSET_PATHS = "\"SiriAnimation/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Build Anything II";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "VibeCode needs microphone access to listen to your voice when you describe the app you want to create.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "VibeCode uses speech recognition to understand your app ideas and generate web applications based on what you say.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.ammaar.VibeCodeAlpha;
+				PRODUCT_BUNDLE_IDENTIFIER = io.designcode.SiriAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		930AE0422F08082B009DFCC4 /* Release */ = {
+		967BCC472C217BB70001CF94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7S264298H8;
+				DEVELOPMENT_ASSET_PATHS = "\"SiriAnimation/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Build Anything II";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "VibeCode needs microphone access to listen to your voice when you describe the app you want to create.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "VibeCode uses speech recognition to understand your app ideas and generate web applications based on what you say.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = me.ammaar.VibeCodeAlpha;
+				PRODUCT_BUNDLE_IDENTIFIER = io.designcode.SiriAnimation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -321,25 +351,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		930AE0302F080829009DFCC4 /* Build configuration list for PBXProject "VibeCodeAlpha" */ = {
+		967BCC322C217BB60001CF94 /* Build configuration list for PBXProject "SiriAnimation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				930AE03E2F08082B009DFCC4 /* Debug */,
-				930AE03F2F08082B009DFCC4 /* Release */,
+				967BCC432C217BB70001CF94 /* Debug */,
+				967BCC442C217BB70001CF94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		930AE0402F08082B009DFCC4 /* Build configuration list for PBXNativeTarget "VibeCodeAlpha" */ = {
+		967BCC452C217BB70001CF94 /* Build configuration list for PBXNativeTarget "SiriAnimation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				930AE0412F08082B009DFCC4 /* Debug */,
-				930AE0422F08082B009DFCC4 /* Release */,
+				967BCC462C217BB70001CF94 /* Debug */,
+				967BCC472C217BB70001CF94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 930AE02D2F080829009DFCC4 /* Project object */;
+	rootObject = 967BCC2F2C217BB60001CF94 /* Project object */;
 }
