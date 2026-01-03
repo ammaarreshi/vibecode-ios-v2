@@ -2,6 +2,8 @@
 //  GeneratedAppsView.swift
 //  VibeCodeAlpha
 //
+//  3D carousel view for browsing generated app variations
+//
 
 import SwiftUI
 import WebKit
@@ -81,11 +83,11 @@ struct GeneratedAppsView: View {
     
     private func carouselCard(variation: AppVariation, offset: CGFloat, cardWidth: CGFloat, cardHeight: CGFloat) -> some View {
         // 3D rotation and scaling based on offset
-        let rotation = Double(offset) * 45 // Rotate cards as they move to sides
-        let scale = 1.0 - abs(offset) * 0.2 // Scale down side cards
-        let xOffset = offset * cardWidth * 0.7 // Horizontal offset
-        let opacity = 1.0 - abs(offset) * 0.5 // Fade side cards
-        let zIndex = 1.0 - abs(offset) // Front card on top
+        let rotation = Double(offset) * 45
+        let scale = 1.0 - abs(offset) * 0.2
+        let xOffset = offset * cardWidth * 0.7
+        let opacity = 1.0 - abs(offset) * 0.5
+        let zIndex = 1.0 - abs(offset)
         
         return WebPreviewView(htmlContent: variation.previewContent)
             .frame(width: cardWidth, height: cardHeight)
@@ -162,7 +164,7 @@ struct GeneratedAppsView: View {
     
     private var bottomSection: some View {
         VStack(spacing: 20) {
-            // Dial with fade edges
+            // Rotary dial selector
             RotaryDial(
                 itemCount: appState.generatedVariations.count,
                 selectedIndex: $appState.selectedVariationIndex
@@ -175,7 +177,7 @@ struct GeneratedAppsView: View {
     
     private var bottomActionRow: some View {
         HStack {
-            // Cancel button (X)
+            // Cancel button
             Button {
                 appState.resetFlow()
             } label: {
@@ -188,7 +190,7 @@ struct GeneratedAppsView: View {
             
             Spacer()
             
-            // Variation indicator (yellow circle with number)
+            // Variation indicator
             ZStack {
                 Circle()
                     .fill(Color.yellow)
@@ -201,7 +203,7 @@ struct GeneratedAppsView: View {
             
             Spacer()
             
-            // Confirm button (checkmark)
+            // Confirm button
             Button {
                 appState.proceedToIcons()
             } label: {
@@ -213,143 +215,6 @@ struct GeneratedAppsView: View {
             .buttonStyle(.glassProminent)
         }
         .padding(.horizontal, 32)
-    }
-}
-
-// MARK: - Side Action Button
-
-struct SideActionButton: View {
-    let icon: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
-                .frame(width: 44, height: 44)
-        }
-        .buttonStyle(.glass)
-        .tint(.white)
-    }
-}
-
-// MARK: - Rotary Dial
-
-struct RotaryDial: View {
-    let itemCount: Int
-    @Binding var selectedIndex: Int
-    
-    private let dialWidth: CGFloat = 320
-    private let tickCount: Int = 60
-    
-    @State private var rotationOffset: CGFloat = 0 // Continuous rotation offset
-    @State private var lastDragValue: CGFloat = 0
-    
-    var body: some View {
-        ZStack {
-            // Tick marks with upward curve (smile)
-            ForEach(0..<tickCount, id: \.self) { index in
-                tickMark(at: index)
-            }
-            
-            // Needle indicator (fixed center)
-            needleView
-        }
-        .frame(width: dialWidth, height: 50)
-        .mask {
-            // Fade edges
-            LinearGradient(
-                stops: [
-                    .init(color: .clear, location: 0),
-                    .init(color: .white, location: 0.15),
-                    .init(color: .white, location: 0.85),
-                    .init(color: .clear, location: 1)
-                ],
-                startPoint: .leading,
-                endPoint: .trailing
-            )
-        }
-        .gesture(dialGesture)
-    }
-    
-    private func tickMark(at index: Int) -> some View {
-        // Calculate position with rotation offset for infinite scroll feel
-        let baseT = CGFloat(index) / CGFloat(tickCount - 1)
-        let offsetT = baseT + rotationOffset / dialWidth
-        let wrappedT = offsetT.truncatingRemainder(dividingBy: 1.0)
-        let t = wrappedT < 0 ? wrappedT + 1 : wrappedT
-        
-        let x = t * dialWidth
-        
-        // Upward curve (highest in center)
-        let normalizedX = (t - 0.5) * 2
-        let curveAmount: CGFloat = 25
-        let y: CGFloat = 40 - (curveAmount * (1 - normalizedX * normalizedX))
-        
-        let isLong = index % 6 == 0
-        let height: CGFloat = isLong ? 12 : 7
-        let width: CGFloat = isLong ? 1.5 : 1
-        
-        // Highlight near center (where needle is)
-        let distanceFromCenter = abs(t - 0.5)
-        let isHighlighted = distanceFromCenter < 0.05
-        
-        return Rectangle()
-            .fill(isHighlighted ? Color.yellow : Color.white.opacity(0.4))
-            .frame(width: width, height: height)
-            .position(x: x, y: y - height / 2)
-            .shadow(color: isHighlighted ? .yellow.opacity(0.6) : .clear, radius: 3)
-    }
-    
-    private var needleView: some View {
-        // Fixed center needle
-        let t: CGFloat = 0.5
-        let x = t * dialWidth
-        let curveAmount: CGFloat = 25
-        let y: CGFloat = 40 - curveAmount
-        
-        return VStack(spacing: 0) {
-            Rectangle()
-                .fill(Color.red)
-                .frame(width: 2, height: 20)
-            Circle()
-                .fill(Color.red)
-                .frame(width: 5, height: 5)
-        }
-        .position(x: x, y: y - 10)
-    }
-    
-    private var dialGesture: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                let delta = value.translation.width - lastDragValue
-                lastDragValue = value.translation.width
-                
-                // Rotate based on drag delta (more sensitive)
-                rotationOffset += delta * 0.5
-                
-                // Calculate new index based on accumulated rotation
-                let ticksPerItem = CGFloat(tickCount) / CGFloat(max(1, itemCount))
-                let rotatedTicks = -rotationOffset / (dialWidth / CGFloat(tickCount))
-                let newIndex = Int(round(rotatedTicks / ticksPerItem))
-                let clampedIndex = ((newIndex % itemCount) + itemCount) % itemCount
-                
-                if clampedIndex != selectedIndex && itemCount > 0 {
-                    UISelectionFeedbackGenerator().selectionChanged()
-                    selectedIndex = clampedIndex
-                }
-            }
-            .onEnded { value in
-                lastDragValue = 0
-                
-                // Smooth snap animation
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                    // Snap to nearest item position
-                    let ticksPerItem = CGFloat(tickCount) / CGFloat(max(1, itemCount))
-                    let targetTicks = CGFloat(selectedIndex) * ticksPerItem
-                    rotationOffset = -targetTicks * (dialWidth / CGFloat(tickCount))
-                }
-            }
     }
 }
 

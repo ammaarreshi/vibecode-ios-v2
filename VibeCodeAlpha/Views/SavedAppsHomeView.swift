@@ -3,7 +3,7 @@
 //  VibeCodeAlpha
 //
 //  iOS-style homescreen showing saved apps with mic button
-//  Tapping mic navigates to RecordingView via flowState
+//  Handles both empty state (onboarding) and populated state
 //
 
 import SwiftUI
@@ -21,31 +21,12 @@ struct SavedAppsHomeView: View {
             // Black background
             Color.black.ignoresSafeArea()
             
-            VStack(spacing: 0) {
-                // App grid
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 24) {
-                        ForEach(appState.savedApps) { app in
-                            AppIconView(
-                                app: app,
-                                onTap: { openApp(app) },
-                                onLongPress: {
-                                    appToDelete = app
-                                    showDeleteAlert = true
-                                }
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 60)
-                    .padding(.bottom, 120)
-                }
-                
-                Spacer()
-                
-                // Mic button - navigates to RecordingView
-                micButtonView
-                    .padding(.bottom, 50)
+            if appState.savedApps.isEmpty {
+                // Empty state - onboarding view
+                emptyStateView
+            } else {
+                // Populated state - app grid
+                populatedStateView
             }
         }
         .fullScreenCover(item: $selectedApp) { app in
@@ -61,42 +42,67 @@ struct SavedAppsHomeView: View {
         }
     }
     
-    // MARK: - Mic Button
+    // MARK: - Empty State
     
-    private var micButtonView: some View {
-        Button {
-            startRecording()
-        } label: {
-            Image(systemName: "mic.fill")
-                .frame(width: 96, height: 96)
-                .foregroundStyle(.white)
-                .font(.system(size: 32, weight: .semibold))
-                .background(
-                    AnimatedMeshGradient()
-                        .mask(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(lineWidth: 20)
-                                .blur(radius: 10)
-                        )
-                        .blendMode(.lighten)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 3)
-                        .fill(Color.white)
-                        .blur(radius: 2)
-                        .blendMode(.overlay)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 1)
-                        .fill(Color.white)
-                        .blur(radius: 1)
-                        .blendMode(.overlay)
-                )
-                .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
+    private var emptyStateView: some View {
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Welcome text
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Vibe code")
+                    .font(.system(size: 42, weight: .bold))
+                    .foregroundStyle(.white)
+                
+                Text("Tap the mic and describe\nthe app you want to create")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundStyle(.white.opacity(0.6))
+                    .lineSpacing(4)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 24)
+            
+            Spacer()
+            
+            // Mic button
+            MicButton(isRecording: false, isBuildingMode: false) {
+                startRecording()
+            }
+            .padding(.bottom, 64)
         }
-        .buttonStyle(.plain)
+    }
+    
+    // MARK: - Populated State
+    
+    private var populatedStateView: some View {
+        VStack(spacing: 0) {
+            // App grid
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 24) {
+                    ForEach(appState.savedApps) { app in
+                        AppIconView(
+                            app: app,
+                            onTap: { openApp(app) },
+                            onLongPress: {
+                                appToDelete = app
+                                showDeleteAlert = true
+                            }
+                        )
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 60)
+                .padding(.bottom, 120)
+            }
+            
+            Spacer()
+            
+            // Mic button
+            MicButton(isRecording: false, isBuildingMode: false) {
+                startRecording()
+            }
+            .padding(.bottom, 50)
+        }
     }
     
     // MARK: - Actions
@@ -110,80 +116,7 @@ struct SavedAppsHomeView: View {
     private func startRecording() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
-        // Navigate to RecordingView via flowState change
         appState.flowState = .recording
-    }
-}
-
-// MARK: - App Icon View
-
-struct AppIconView: View {
-    let app: SavedApp
-    let onTap: () -> Void
-    let onLongPress: () -> Void
-    
-    @State private var isPressed = false
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            Button(action: onTap) {
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [app.iconColor, app.iconColor.opacity(0.6)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 68, height: 68)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [.white.opacity(0.4), .clear],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
-                    }
-                    .overlay {
-                        Image(systemName: app.iconSymbol)
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundStyle(.white)
-                    }
-                    .shadow(color: app.iconColor.opacity(0.4), radius: 12, y: 6)
-                    .scaleEffect(isPressed ? 0.9 : 1.0)
-            }
-            .buttonStyle(.plain)
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.5)
-                    .onEnded { _ in
-                        let generator = UIImpactFeedbackGenerator(style: .medium)
-                        generator.impactOccurred()
-                        onLongPress()
-                    }
-            )
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            isPressed = true
-                        }
-                    }
-                    .onEnded { _ in
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            isPressed = false
-                        }
-                    }
-            )
-            
-            Text(app.name)
-                .font(.caption.weight(.medium))
-                .foregroundStyle(.white)
-                .lineLimit(1)
-        }
-        .frame(width: 80)
     }
 }
 

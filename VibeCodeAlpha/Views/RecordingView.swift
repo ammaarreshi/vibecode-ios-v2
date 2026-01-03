@@ -3,7 +3,7 @@
 //  VibeCodeAlpha
 //
 //  Reusable voice recording and app building view
-//  Uses mesh gradient with rim effect from AppHomescreenView
+//  Uses mesh gradient with brightness rim effect
 //
 
 import SwiftUI
@@ -14,7 +14,6 @@ struct RecordingView: View {
     @State private var isRecording = false
     @State private var isBuildingMode = false
     @State private var maskTimer: Float = 0.0
-    @State private var spinAngle: Double = 0
     @State private var timer: Timer?
     @State private var origin: CGPoint = .zero
     @State private var counter: Int = 0
@@ -40,7 +39,7 @@ struct RecordingView: View {
                 // Black background
                 Color.black.ignoresSafeArea()
                 
-                // Animated mesh gradient (always visible in recording view)
+                // Animated mesh gradient
                 MeshGradientView(maskTimer: $maskTimer, gradientSpeed: .constant(0.03))
                     .scaleEffect(1.3)
                     .ignoresSafeArea()
@@ -54,8 +53,8 @@ struct RecordingView: View {
                             .blur(radius: 28)
                     }
                 
-                // Brightness rim around screen
-                brightnessRim
+                // Brightness rim around screen (white glow effect)
+                BrightnessRimView()
             }
             .modifier(RippleEffect(at: origin, trigger: counter))
         }
@@ -71,30 +70,10 @@ struct RecordingView: View {
             }
         }
         .onChange(of: appState.flowState) { oldValue, newValue in
-            // Navigate to variations when generation completes
             if newValue == .variations {
                 isBuildingMode = false
                 isRecording = false
             }
-        }
-    }
-    
-    // MARK: - Brightness Rim
-    
-    private var brightnessRim: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 52, style: .continuous)
-                .stroke(Color.white, style: .init(lineWidth: 10))
-                .blur(radius: 5)
-                .blendMode(.overlay)
-            RoundedRectangle(cornerRadius: 52, style: .continuous)
-                .stroke(Color.white, style: .init(lineWidth: 10))
-                .blur(radius: 10)
-                .blendMode(.softLight)
-            RoundedRectangle(cornerRadius: 52, style: .continuous)
-                .stroke(Color.white, style: .init(lineWidth: 5))
-                .blur(radius: 2)
-                .blendMode(.overlay)
         }
     }
     
@@ -133,8 +112,12 @@ struct RecordingView: View {
                 Spacer()
                 
                 // Mic button
-                micButtonView
-                    .padding(.bottom, 80)
+                MicButton(isRecording: isRecording, isBuildingMode: isBuildingMode) {
+                    if !isBuildingMode {
+                        triggerMicAction()
+                    }
+                }
+                .padding(.bottom, 80)
             }
         }
     }
@@ -147,7 +130,7 @@ struct RecordingView: View {
                 Text(buildingMessages[buildingMessageIndex])
                     .font(.system(size: 34, weight: .bold))
                     .foregroundStyle(.white)
-                    .id(buildingMessageIndex) // Force view update for transition
+                    .id(buildingMessageIndex)
                     .transition(.asymmetric(
                         insertion: .opacity.combined(with: .move(edge: .bottom)),
                         removal: .opacity.combined(with: .move(edge: .top))
@@ -176,64 +159,6 @@ struct RecordingView: View {
         .animation(.easeInOut(duration: 0.3), value: isBuildingMode)
     }
     
-    // MARK: - Mic Button
-    
-    private var micButtonView: some View {
-        Button {
-            if !isBuildingMode {
-                triggerMicAction()
-            }
-        } label: {
-            Group {
-                if isBuildingMode {
-                    // Spinning circle during building
-                    Circle()
-                        .trim(from: 0, to: 0.7)
-                        .stroke(Color.white, lineWidth: 3)
-                        .frame(width: 40, height: 40)
-                        .rotationEffect(.degrees(spinAngle))
-                        .onAppear {
-                            withAnimation(.linear(duration: 1).repeatForever(autoreverses: false)) {
-                                spinAngle = 360
-                            }
-                        }
-                } else {
-                    Image(systemName: isRecording ? "stop.fill" : "mic.fill")
-                        .contentTransition(.symbolEffect(.replace))
-                }
-            }
-            .frame(width: 96, height: 96)
-            .foregroundStyle(.white)
-            .font(.system(size: 32, weight: .semibold))
-            .background(
-                AnimatedMeshGradient()
-                    .mask(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(lineWidth: 20)
-                            .blur(radius: 10)
-                    )
-                    .blendMode(.lighten)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(lineWidth: 3)
-                    .fill(Color.white)
-                    .blur(radius: 2)
-                    .blendMode(.overlay)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(lineWidth: 1)
-                    .fill(Color.white)
-                    .blur(radius: 1)
-                    .blendMode(.overlay)
-            )
-            .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-        }
-        .buttonStyle(.plain)
-        .disabled(isBuildingMode)
-    }
-    
     // MARK: - Actions
     
     private func startRecording() {
@@ -251,13 +176,10 @@ struct RecordingView: View {
         counter += 1
         
         if isRecording {
-            // Stop recording
             isRecording = false
             appState.stopListening()
             
-            // Only proceed if we have transcribed text
             if !appState.transcribedText.isEmpty {
-                // Start building
                 isBuildingMode = true
                 startBuildingMessageCycle()
                 appState.promptText = appState.transcribedText
@@ -265,11 +187,9 @@ struct RecordingView: View {
                     await appState.generateWithGemini()
                 }
             } else {
-                // No text - go back to homescreen
                 appState.resetFlow()
             }
         } else {
-            // Start recording again (if they stopped and want to re-record)
             startRecording()
         }
     }
@@ -291,7 +211,6 @@ struct RecordingView: View {
     }
     
     private func startBuildingMessageCycle() {
-        // Cycle through building messages every 2 seconds
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { t in
             if isBuildingMode {
                 withAnimation(.easeInOut(duration: 0.4)) {

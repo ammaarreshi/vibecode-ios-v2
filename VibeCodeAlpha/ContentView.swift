@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  VibeCodeAlpha
 //
-//  Created by Ammaar Reshi on 1/2/26.
+//  Main navigation router based on flowState
 //
 
 import SwiftUI
@@ -14,18 +14,12 @@ struct ContentView: View {
         ZStack {
             switch appState.flowState {
             case .homescreen:
-                // When we have saved apps, show the saved apps homescreen
-                // Otherwise show the prompting view
-                if !appState.savedApps.isEmpty {
-                    SavedAppsHomeView(appState: appState)
-                        .transition(.opacity)
-                } else {
-                    AppHomescreenView(appState: appState)
-                        .transition(.opacity)
-                }
+                // Always show SavedAppsHomeView - it handles both empty and populated states
+                SavedAppsHomeView(appState: appState)
+                    .transition(.opacity)
                 
             case .recording, .processing:
-                // Use dedicated recording view for voice input and building
+                // Dedicated recording view for voice input and building
                 RecordingView(appState: appState)
                     .transition(.opacity)
                 
@@ -43,7 +37,6 @@ struct ContentView: View {
             }
         }
         .animation(.easeInOut(duration: 0.35), value: appState.flowState)
-        .animation(.easeInOut(duration: 0.35), value: appState.savedApps.isEmpty)
         .preferredColorScheme(.dark)
     }
 }

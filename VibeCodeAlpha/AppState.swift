@@ -131,14 +131,13 @@ class AppState {
         await MainActor.run {
             if sortedVariations.isEmpty {
                 generationError = "Failed to generate apps. Please try again."
-                // Fall back to mock data
-                generatedVariations = createMockVariations()
+                flowState = .homescreen
             } else {
                 generatedVariations = sortedVariations
+                flowState = .variations
             }
             selectedVariationIndex = 0
             isGenerating = false
-            flowState = .variations
         }
     }
     
@@ -231,69 +230,5 @@ class AppState {
     func deleteApp(_ app: SavedApp) {
         savedApps.removeAll { $0.id == app.id }
     }
-    
-    // MARK: - Mock Data (fallback)
-    
-    private func createMockVariations() -> [AppVariation] {
-        return [
-            AppVariation(
-                name: "Variation 1",
-                previewContent: mockHTML(title: "Version A", color: "#3B82F6"),
-                theme: AppTheme.themes[0]
-            ),
-            AppVariation(
-                name: "Variation 2",
-                previewContent: mockHTML(title: "Version B", color: "#8B5CF6"),
-                theme: AppTheme.themes[1]
-            ),
-            AppVariation(
-                name: "Variation 3",
-                previewContent: mockHTML(title: "Version C", color: "#10B981"),
-                theme: AppTheme.themes[2]
-            ),
-        ]
-    }
-    
-    private func mockHTML(title: String, color: String) -> String {
-        """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body {
-                    font-family: -apple-system, system-ui, sans-serif;
-                    background: linear-gradient(135deg, \(color), #1F2937);
-                    min-height: 100vh;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    padding: 20px;
-                }
-                h1 { font-size: 2rem; margin-bottom: 1rem; }
-                p { opacity: 0.8; text-align: center; }
-                .card {
-                    background: rgba(255,255,255,0.1);
-                    backdrop-filter: blur(10px);
-                    border-radius: 16px;
-                    padding: 24px;
-                    margin-top: 24px;
-                    width: 100%;
-                    max-width: 300px;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>\(title)</h1>
-            <p>Your vibe-coded app is ready!</p>
-            <div class="card">
-                <p>This is a preview of your generated application.</p>
-            </div>
-        </body>
-        </html>
-        """
-    }
 }
+
